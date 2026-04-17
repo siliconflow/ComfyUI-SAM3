@@ -6,7 +6,7 @@
 
 import { app } from "../../scripts/app.js";
 
-console.log("[SAM3] ===== MULTI-REGION COLLECTOR VERSION 1 =====");
+// console.log("[SAM3] ===== MULTI-REGION COLLECTOR VERSION 1 =====");
 
 // Color palette for different prompt regions (max 8)
 const PROMPT_COLORS = [
@@ -42,7 +42,7 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name !== "SAM3MultiRegionCollector") return;
 
-        console.log("[SAM3] Registering SAM3MultiRegionCollector node");
+        // console.log("[SAM3] Registering SAM3MultiRegionCollector node");
         const onNodeCreated = nodeType.prototype.onNodeCreated;
 
         nodeType.prototype.onNodeCreated = function () {
@@ -303,7 +303,7 @@ app.registerExtension({
                         this.canvasWidget.activePromptIndex = 0;
                         this.rebuildTabBar();
                         this.redrawCanvas();
-                        console.log("[SAM3] Restored", stored.length, "prompts from saved state");
+                        // console.log("[SAM3] Restored", stored.length, "prompts from saved state");
                     }
                 } catch (e) {
                     console.log("[SAM3] Failed to restore prompts:", e);

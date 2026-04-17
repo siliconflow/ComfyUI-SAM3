@@ -7,7 +7,7 @@
 import { app } from "../../scripts/app.js";
 import { ComfyWidgets } from "../../scripts/widgets.js";
 
-console.log("[SAM3] ===== BBOX COLLECTOR VERSION 1 =====");
+// console.log("[SAM3] ===== BBOX COLLECTOR VERSION 1 =====");
 
 // Helper function to properly hide widgets (enhanced for complete hiding)
 function hideWidgetForGood(node, widget, suffix = '') {
@@ -45,18 +45,18 @@ app.registerExtension({
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "SAM3BBoxCollector") {
-            console.log("[SAM3] Registering SAM3BBoxCollector node");
+            // console.log("[SAM3] Registering SAM3BBoxCollector node");
             const onNodeCreated = nodeType.prototype.onNodeCreated;
 
             nodeType.prototype.onNodeCreated = function () {
-                console.log("[SAM3] onNodeCreated called for SAM3BBoxCollector");
+                // console.log("[SAM3] onNodeCreated called for SAM3BBoxCollector");
 
                 // Call original onNodeCreated FIRST to create all widgets
                 const result = onNodeCreated?.apply(this, arguments);
 
-                console.log("[SAM3] Widgets after creation:", this.widgets?.map(w => w.name));
+                // console.log("[SAM3] Widgets after creation:", this.widgets?.map(w => w.name));
 
-                console.log("[SAM3] Creating canvas container");
+                // console.log("[SAM3] Creating canvas container");
                 // Create canvas container - dynamically sized based on node height
                 const container = document.createElement("div");
                 container.style.cssText = "position: relative; width: 100%; background: #222; overflow: hidden; box-sizing: border-box; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center;";
@@ -89,7 +89,7 @@ app.registerExtension({
                 container.appendChild(canvas);
 
                 const ctx = canvas.getContext("2d");
-                console.log("[SAM3] Canvas created:", canvas);
+                // console.log("[SAM3] Canvas created:", canvas);
 
                 // Store state
                 this.canvasWidget = {
@@ -105,9 +105,9 @@ app.registerExtension({
                 };
 
                 // Add as DOM widget
-                console.log("[SAM3] Adding DOM widget via addDOMWidget");
+                // console.log("[SAM3] Adding DOM widget via addDOMWidget");
                 const widget = this.addDOMWidget("canvas", "customCanvas", container);
-                console.log("[SAM3] addDOMWidget returned:", widget);
+                // console.log("[SAM3] addDOMWidget returned:", widget);
 
                 // Store widget reference for updates
                 this.canvasWidget.domWidget = widget;
@@ -124,7 +124,7 @@ app.registerExtension({
                 clearButton.addEventListener("click", (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("[SAM3] Clearing all bboxes");
+                    // console.log("[SAM3] Clearing all bboxes");
                     this.canvasWidget.positiveBBoxes = [];
                     this.canvasWidget.negativeBBoxes = [];
                     this.updateBBoxes();
@@ -132,13 +132,13 @@ app.registerExtension({
                 });
 
                 // Hide the string storage widgets
-                console.log("[SAM3] Attempting to hide widgets...");
-                console.log("[SAM3] Widgets before hiding:", this.widgets.map(w => w.name));
+                // console.log("[SAM3] Attempting to hide widgets...");
+                // console.log("[SAM3] Widgets before hiding:", this.widgets.map(w => w.name));
 
                 const bboxesWidget = this.widgets.find(w => w.name === "bboxes");
                 const negBboxesWidget = this.widgets.find(w => w.name === "neg_bboxes");
 
-                console.log("[SAM3] Found widgets to hide:", { bboxesWidget, negBboxesWidget });
+                // console.log("[SAM3] Found widgets to hide:", { bboxesWidget, negBboxesWidget });
 
                 // Initialize default values BEFORE hiding
                 if (bboxesWidget) {
@@ -157,11 +157,11 @@ app.registerExtension({
                 // Apply hiding
                 if (bboxesWidget) {
                     hideWidgetForGood(this, bboxesWidget);
-                    console.log("[SAM3] bboxes - type:", bboxesWidget.type, "hidden:", bboxesWidget.hidden, "value:", bboxesWidget.value);
+                    // console.log("[SAM3] bboxes - type:", bboxesWidget.type, "hidden:", bboxesWidget.hidden, "value:", bboxesWidget.value);
                 }
                 if (negBboxesWidget) {
                     hideWidgetForGood(this, negBboxesWidget);
-                    console.log("[SAM3] neg_bboxes - type:", negBboxesWidget.type, "hidden:", negBboxesWidget.hidden, "value:", negBboxesWidget.value);
+                    // console.log("[SAM3] neg_bboxes - type:", negBboxesWidget.type, "hidden:", negBboxesWidget.hidden, "value:", negBboxesWidget.value);
                 }
 
                 // CRITICAL FIX: Override onDrawForeground to skip rendering hidden widgets
@@ -189,8 +189,8 @@ app.registerExtension({
                     }
                 };
 
-                console.log("[SAM3] Widgets after hiding:", this.widgets.map(w => `${w.name}(${w.type})`));
-                console.log("[SAM3] All widgets processing complete");
+                // console.log("[SAM3] Widgets after hiding:", this.widgets.map(w => `${w.name}(${w.type})`));
+                // console.log("[SAM3] All widgets processing complete");
 
                 // Mouse event handlers for bbox drawing
                 canvas.addEventListener("mousedown", (e) => {
@@ -297,7 +297,7 @@ app.registerExtension({
 
                 // Handle image input changes
                 this.onExecuted = (message) => {
-                    console.log("[SAM3] onExecuted called with message:", message);
+                    // console.log("[SAM3] onExecuted called with message:", message);
                     if (message.bg_image && message.bg_image[0]) {
                         const img = new Image();
                         img.onload = () => {
@@ -338,7 +338,7 @@ app.registerExtension({
                 };
 
                 // Draw initial placeholder
-                console.log("[SAM3] Drawing initial placeholder");
+                // console.log("[SAM3] Drawing initial placeholder");
                 this.redrawCanvas();
 
                 // Set initial node size
@@ -349,8 +349,8 @@ app.registerExtension({
                 // Set initial container height
                 container.style.height = "400px";
 
-                console.log("[SAM3] Node size set to:", [nodeWidth, nodeHeight]);
-                console.log("[SAM3] onNodeCreated complete");
+                // console.log("[SAM3] Node size set to:", [nodeWidth, nodeHeight]);
+                // console.log("[SAM3] onNodeCreated complete");
                 return result;
             };
 

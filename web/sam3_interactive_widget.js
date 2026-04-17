@@ -62,7 +62,7 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name !== "SAM3InteractiveCollector") return;
 
-        console.log("[SAM3] Registering SAM3InteractiveCollector node");
+        // console.log("[SAM3] Registering SAM3InteractiveCollector node");
         ensureSpinnerCSS();
         const onNodeCreated = nodeType.prototype.onNodeCreated;
 
@@ -391,7 +391,7 @@ app.registerExtension({
                     origOnExecuted.call(this, message);
                     resolve();
                 };
-                console.log("[SAM3] Model not loaded — auto-queuing workflow...");
+                // console.log("[SAM3] Model not loaded — auto-queuing workflow...");
                 app.queuePrompt(0, 1);
             });
         };
