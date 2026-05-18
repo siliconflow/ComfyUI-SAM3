@@ -6,7 +6,7 @@
 
 import { app } from "../../scripts/app.js";
 
-console.log("[SAM3] ===== INTERACTIVE COLLECTOR VERSION 2 =====");
+// console.log("[SAM3] ===== INTERACTIVE COLLECTOR VERSION 2 =====");
 
 const PROMPT_COLORS = [
     { name: "cyan",    primary: "#00FFFF", dim: "#006666" },
@@ -64,7 +64,7 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name !== "SAM3InteractiveCollector") return;
 
-        console.log("[SAM3] Registering SAM3InteractiveCollector node");
+        // console.log("[SAM3] Registering SAM3InteractiveCollector node");
         ensureSpinnerCSS();
         const onNodeCreated = nodeType.prototype.onNodeCreated;
 
@@ -400,7 +400,7 @@ app.registerExtension({
                 this.updateRunButton();
 
                 const name = prompt.name;
-                console.log(`[SAM3] Prompt "${name}" dispatched`);
+                // console.log(`[SAM3] Prompt "${name}" dispatched`);
                 try {
                     const resp = await fetch("/sam3/interactive_segment_one", {
                         method: "POST",
